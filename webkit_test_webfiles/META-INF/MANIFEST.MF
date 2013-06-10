@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Webkit_test_webfiles
+Bundle-SymbolicName: webkit_test_webfiles
+Bundle-Version: 1.0.0.qualifier
+Fragment-Host: webkit_test;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

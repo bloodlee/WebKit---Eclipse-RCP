@@ -1,0 +1,11 @@
+div#btn {
+	color: blue;
+	font-size: 20;
+}
+
+div.two_draw_area {
+	width: 100;
+	height: 100;
+	border: 1px;
+	border-color: green;
+}

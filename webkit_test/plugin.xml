@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="webkit_test.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="webkit_test.Perspective"
+            id="webkit_test.perspective">
+      </perspective>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="webkit_test.application"
+            name="Hello RCP">
+         <property
+               name="windowImages"
+               value="icons/alt_window_16.gif,icons/alt_window_32.gif">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="WebKit_Product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="webkit_test.application"
+            name="WebKit">
+         <property
+               name="appName"
+               value="WebKit">
+         </property>
+      </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="webkit_test.WebView"
+            id="webkit_test.webview"
+            name="WebView"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>
