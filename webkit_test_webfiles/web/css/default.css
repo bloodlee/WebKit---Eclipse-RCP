@@ -9,3 +9,45 @@ div.two_draw_area {
 	border: 1px;
 	border-color: green;
 }
+
+.btns {
+	background-color: blue;
+	opacity: .7;
+}
+
+table {
+	width: 100%;
+}
+
+#btns1 {
+	position: absolute;
+	display: block;
+	width: 40;
+	height: 16;
+}
+
+#btns2 {
+	position: absolute;
+	display: block;
+	width: 40;
+	height: 16;
+}
+
+#img1_div, #img2_div {
+	border: 1px solid #777;
+	width: 60%;
+	height: 300;
+	background-color: #fbca93;
+	text-align: center;
+	margin: 10px auto;
+}
+
+#img1_div_1, #img2_div_1 {
+	width: 100%;
+	height: 100%;
+}
+
+#img1, #img2 {
+	width: 100%;
+	height: 100%;
+}

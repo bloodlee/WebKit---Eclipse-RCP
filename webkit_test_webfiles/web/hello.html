@@ -1,129 +1,225 @@
 <html>
-	<head>
-		<title>Hello</title>
-		<script src="js/jquery-1.10.1.js"></script>
-		<script src="js/two.js"></script>
-		<script src="js/alloyimage-1.1.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/default.css"/>
-		<link rel="stylesheet" type="text/css" href="stylesheets/css3buttons.css"/>
-		
-		<script>
-		
-			function draw() {
-				var elem = document.getElementById("draw-shapes");
-				
-				elem.innerText = "";
-				
-				var params = { width: 285, height: 200 };
-				
-				var two = new Two(params);
-				
-				two.clear();
-				two.appendTo(elem);
-				
-				// two has convenience methods to create shapes.
-				var circle = two.makeCircle(72, 100, 50);
-				var rect = two.makeRectangle(213, 100, 100, 100);
-				
-				// The object returned has many stylable properties:
-				circle.fill = '#FF8000';
-				circle.stroke = 'orangered'; // Accepts all valid css color
-				circle.linewidth = 5;
+<head>
+<title>Hello</title>
+<script src="js/jquery-1.10.1.js"></script>
+<script src="ui/jquery-ui.js"></script>
+<script src="js/two.js"></script>
+<script src="js/alloyimage-1.1.js"></script>
+<link rel="stylesheet" type="text/css" href="css/default.css" />
+<link rel="stylesheet" type="text/css"
+	href="stylesheets/css3buttons.css" />
 
-				rect.fill = 'rgb(' + r() + ', ' + g() + ', ' + b() + ')';
-				rect.opacity = 0.75;
-				rect.noStroke();
-				
-				two.update();
-			}
-			
-			function draw2() {
-				var elem = document.getElementById('draw-shapes');
-				elem.innerText = "";
-				
-				var two = new Two({ width: 285, height: 200 }).appendTo(elem);
-				
-				var circle = two.makeCircle(-70, 0, 50);
-				var rect = two.makeRectangle(70, 0, 100, 100);
-				circle.fill = '#FF8000';
-				rect.fill = 'rgb(' + r() + ', ' + g() + ', ' + b() + ')'; // 'rgba(0, 200, 255, 0.75)';
-				
-				var group = two.makeGroup(circle, rect);
-				group.translation.set(two.width / 2, two.height / 2);
-				group.scale = 0;
-				group.noStroke();
-				
-				// Bind a function to scale and rotate the group
-				// to the animation loop.
-				two.bind('update', function(frameCount) {
-				  // This code is called everytime two.update() is called.
-				  // Effectively 60 times per second.
-				  if (group.scale > 0.9999) {
-				    group.scale = group.rotation = 0;
-				  }
-				  var t = (1 - group.scale) * 0.125;
-				  group.scale += t;
-				  group.rotation += t * 4 * Math.PI;
-				  
-				  setScale(group.scale);
-				  setRotation(group.rotation);
-				  
-				}).play();  // Finally, start the animation loop
-			}
-		
-			$(document).ready(function() {
-				// draw();
-				// alert("Hello");
-				
-				$('a#btn').click(function() {
-					draw2();
-				});
+<script>
+	function draw() {
+		var elem = document.getElementById("draw-shapes");
 
-				draw2();
+		elem.innerText = "";
+
+		var params = {
+			width : 285,
+			height : 200
+		};
+
+		var two = new Two(params);
+
+		two.clear();
+		two.appendTo(elem);
+
+		// two has convenience methods to create shapes.
+		var circle = two.makeCircle(72, 100, 50);
+		var rect = two.makeRectangle(213, 100, 100, 100);
+
+		// The object returned has many stylable properties:
+		circle.fill = '#FF8000';
+		circle.stroke = 'orangered'; // Accepts all valid css color
+		circle.linewidth = 5;
+
+		rect.fill = 'rgb(' + r() + ', ' + g() + ', ' + b() + ')';
+		rect.opacity = 0.75;
+		rect.noStroke();
+
+		two.update();
+	}
+
+	function draw2() {
+		var elem = document.getElementById('draw-shapes');
+		elem.innerText = "";
+
+		var two = new Two({
+			width : 285,
+			height : 200
+		}).appendTo(elem);
+
+		var circle = two.makeCircle(-70, 0, 50);
+		var rect = two.makeRectangle(70, 0, 100, 100);
+		circle.fill = '#FF8000';
+		rect.fill = 'rgb(' + r() + ', ' + g() + ', ' + b() + ')'; // 'rgba(0, 200, 255, 0.75)';
+
+		var group = two.makeGroup(circle, rect);
+		group.translation.set(two.width / 2, two.height / 2);
+		group.scale = 0;
+		group.noStroke();
+
+		// Bind a function to scale and rotate the group
+		// to the animation loop.
+		two.bind('update', function(frameCount) {
+			// This code is called everytime two.update() is called.
+			// Effectively 60 times per second.
+			if (group.scale > 0.9999) {
+				group.scale = group.rotation = 0;
+			}
+			var t = (1 - group.scale) * 0.125;
+			group.scale += t;
+			group.rotation += t * 4 * Math.PI;
+
+			setScale(group.scale);
+			setRotation(group.rotation);
+
+		}).play(); // Finally, start the animation loop
+	}
+
+	$(document).ready(function() {
+		// draw();
+		// alert("Hello");
+
+		$('a#btn').click(function() {
+			draw2();
+		});
+
+		draw2();
+
+		$("img#add1").click(function() {
+			var filePath = selectFile();
+			$("img#img1").attr("src", filePath);
+		});
+		
+		$("img#add2").click(function() {
+			var filePath = selectFile();
+			$("img#img2").attr("src", filePath);
+		});
+
+		function position() {
+			$("div#btns1").position({
+				of : $("#img1_div"),
+				my : "right top",
+				at : "right top",
+				offset : "0 0",
+				collision : "none none",
 			});
 			
-			$("a#load_img").click(function() {
-				
+			$("div#btns2").position({
+				of : $("#img2_div"),
+				my : "right top",
+				at : "right top",
+				offset : "0 0",
+				collision : "none none",
 			});
+		}
+
+		$("img#img1").click(function() {
+			var ps = AlloyImage(this);
+			ps.act("反色").replace(this);
+		});
+		
+		$("img#img2").click(function() {
+			var ps = AlloyImage(this);
+			ps.act("高斯模糊", 2).replace(this);
+		});
+		
+		$("img#img1").hover(
+				function() {
+					$("div#btns1").show();		
+				},
+				function() {
+					$("div#btns1").hide();
+				}
+		);
+		
+		$("img#img2").hover(
+				function() {
+					$("div#btns2").show();		
+				},
+				function() {
+					$("div#btns2").hide();
+				}
+		);
+		
+		$("div#btns1").hover(
+				function() {
+					$("div#btns1").show();		
+				},
+				function() {
+					$("div#btns1").hide();
+				}
+		);
+		
+		$("div#btns2").hover(
+				function() {
+					$("div#btns2").show();		
+				},
+				function() {
+					$("div#btns2").hide();
+				}
+		);
+		
+		$( "select, input" ).bind( "click keyup change", position );
+
+		$("div#btns1").hide();
+		$("div#btns2").hide();
+		
+		position();
+	});
+</script>
+
+</head>
+<body>
+	<div id="draw-shapes"></div>
+
+	<a class="button" id="btn">Draw</a>
+
+	<br />
+
+	<img id="target_img" src=""></img>
+
+	<span> <input type="text" id="file_path"></input> <a
+		class="button" id="select_file">Select Image</a> <input type="file"
+		id="logo">
+	</span>
+
+	<table>
+		<tr>
+			<td>
+				<div id="img1_div">
+					<div id="img1_div_1">
+						<img src="images/4.jpg" id="img1"></img>
+					</div>
 			
-		</script>
-		
-	</head>
-	<body>
-		<div id="draw-shapes">	
-		</div>
-		
-		<a class="button" id="btn">Draw</a>
-		
-		<br/>
-		
-		<img id="target_img" src=""></img>
-		
-		<span>
-			<input type="text" id="file_path"></input>
-			<a class="button" id="select_file">Select Image</a> <input type="file" id="logo"> 
-		</span>
-		
-		<script>
-			$("#logo").css('opacity','0');
-			$("#select_file").click(function(){
-			   $("#logo").trigger('click');
-			   $("#file_path").innerHTML=$("#logo").value;
-			   return false;
-			});
-		</script>
-		
-		<div>
-			<img src="/home/jasonlee/Pictures/4.jpg" id="img1"></img>
+					<div class="btns" id="btns1">
+						<img src="images/add.png" id="add1"></img> 
+						<img src="images/remove.png" id="remove1"></img>
+					</div>
 			
-			<script>
-				$("img#img1").click(function() {
-					var ps = AlloyImage(this);
-					ps.act("反色").act("灰度处理").replace(this);
-				});
-			</script>
-			
-		</div>
+				</div>
+			</td>
+		</tr>
 		
-	</body>
+		<tr>
+			<td>
+				<div id="img2_div">
+					<div id="img2_div_1">
+						<img src="images/scen.jpg" id="img2"></img>
+					</div>
+			
+					<div class="btns" id="btns2">
+						<img src="images/add.png" id="add2"></img> 
+						<img src="images/remove.png" id="remove2"></img>
+					</div>
+			
+				</div>
+			</td>
+		</tr>
+
+	</table>
+
+</body>
 </html>
